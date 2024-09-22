@@ -8,6 +8,7 @@ import { useAvatarUpload } from '@/hooks/useAvatarUpload';  // Custom hook for a
 import { useUpdateProfile } from '@/hooks/useUpdateAgentProfile';  // Custom hook for updating profile
 import { useSignatureUpload } from '@/hooks/useSignatureUpload';  // Custom hook for signature upload
 import { useNidUpload } from '@/hooks/useNidUpload';  // Custom hook for nid upload
+import axios from 'axios';
 
 interface FormValues {
   name: string;
@@ -19,11 +20,14 @@ interface FormValues {
   nidNumber: string;
   nidImage: string;
   signatureImage: string;
+  upazila: string;
+  zila: string;
+  organization: string;
 }
 
 export default function UpdateProfile() {
   
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
       name: '',
       password: '',
@@ -34,6 +38,9 @@ export default function UpdateProfile() {
       nidNumber: '',
       nidImage: '',
       signatureImage: '',
+      upazila: '',
+      zila: '',
+      organization: '',
     },
     validate: {
       name: (value) => (value ? null : 'Name is required'),
@@ -48,7 +55,6 @@ export default function UpdateProfile() {
   const { avatarPreview, uploading, handleAvatarChange } = useAvatarUpload();
   const { signaturePreview, signatureuploading, handleSignatureChange }= useSignatureUpload();
   const { nidPreview, niduploading, handleNidChange } = useNidUpload();
-  const { onSubmit } = useUpdateProfile(form);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>, field: string) => {
     const file = event.currentTarget.files?.[0];
@@ -64,6 +70,67 @@ export default function UpdateProfile() {
       }
     } else {
       form.setFieldError(field, 'Failed to load the file');
+    }
+  };
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const type = localStorage.getItem('role');
+    const id = localStorage.getItem('id');
+    const values = form.values;
+
+    const updateChatRequestBody = {
+      id,
+      name: values.name,
+      avatar: values.avatar,
+      type: type,
+    };
+
+    try {
+      await axios.post('/api/chats/users', updateChatRequestBody, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      console.log('Chat profile updated successfully');
+    } catch (err: any) {
+      console.error('Error updating chat profile:', err);
+      alert('Failed to update chat profile: Please try again.');
+    }
+
+    const updateRequestBody = {
+      name: values.name,
+      password: values.password,
+      gender: values.gender,
+      phone: values.phone,
+      address: values.address,
+      upazila: values.upazila,
+      zila: values.zila,
+      organization: values.organization,
+      avatar: values.avatar,
+    };
+
+    try {
+      const email = localStorage.getItem('email');
+      if (!email) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const res = await axios.put('/api/update', updateRequestBody, {
+        headers: { 'Content-Type': 'application/json' },
+        params: { email },
+      });
+
+      if (res.status === 200) {
+        const role = localStorage.getItem('role');
+        window.location.href = role === 'buyer' ? '/buyerdashboard' : '/farmerdashboard';
+      } else {
+        throw new Error(res.data.message || 'Failed to update profile');
+      }
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      alert('Failed to update profile: Please try again.');
     }
   };
 
