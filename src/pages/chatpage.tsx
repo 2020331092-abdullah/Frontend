@@ -13,6 +13,24 @@ import {
 } from 'react-icons/fa';
 import Layout from '@/components/Layout/Layout';
 
+interface Message {
+  id: string;
+  chatId: string; // Reference to the chat this message belongs to
+  senderId: string; // Reference to the user who sent the message
+  receiverId: string; // Reference to the user who will receive the message
+  text: string;
+  time: string;
+}
+
+interface Chat {
+  id: string;
+  user1Id: string; // Reference to the first user (e.g., a farmer)
+  user2Id: string; // Reference to the second user (e.g., a buyer)
+  messages: Message[]; // List of messages associated with this chat
+}
+
+
+
 export default function ChatPage() {
   const { addMessage } = useAddMessage();
   const { users } = useUsers();
@@ -43,7 +61,7 @@ export default function ChatPage() {
 
   // Initialize WebSocket connection with SockJS and STOMP
   useEffect(() => {
-    const socketUrl = 'http://localhost:8081/ws';
+    const socketUrl = 'https://messaging-production.up.railway.app/ws';
     clientRef.current = new Client({
       webSocketFactory: () => new SockJS(socketUrl),
       reconnectDelay: 5000,
@@ -74,14 +92,14 @@ export default function ChatPage() {
   }, []);
 
   // Handle incoming messages from WebSocket
-  const handleIncomingMessage = (receivedMessage) => {
+  const handleIncomingMessage = (receivedMessage:Message ) => {
     setChatList((prevChats) => {
       const updatedChats = [...prevChats];
       const chatIndex = updatedChats.findIndex((chat) => chat.id === receivedMessage.chatId);
       if (chatIndex > -1) {
         updatedChats[chatIndex].messages.push(receivedMessage);
         if (selectedChat?.id === receivedMessage.chatId) {
-          setSelectedChat((prevChat) => ({
+          setSelectedChat((prevChat:Chat) => ({
             ...prevChat,
             messages: [...prevChat.messages, receivedMessage],
           }));
@@ -118,7 +136,7 @@ export default function ChatPage() {
 
       // Send the message to the WebSocket server
       clientRef.current?.publish({
-        destination: '/app/chat',
+        destination: 'https://messaging-production.up.railway.app/ws/app/chat',
         body: JSON.stringify(newMsg),
       });
 
@@ -231,7 +249,7 @@ export default function ChatPage() {
 
                   {/* Chat History Messages */}
                   <div className="space-y-4 overflow-auto h-96">
-                    {selectedChat.messages.map((message, index) => {
+                    {selectedChat.messages.map((message :Message, index:number) => {
                       const isCurrentUserSender = message.senderId === currentUserID;
                       const sender = getUserById(message.senderId);
                       const isLastMessage = index === selectedChat.messages.length - 1;

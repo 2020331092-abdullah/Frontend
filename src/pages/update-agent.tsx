@@ -9,7 +9,20 @@ import { useUpdateProfile } from '@/hooks/useUpdateAgentProfile';  // Custom hoo
 import { useSignatureUpload } from '@/hooks/useSignatureUpload';  // Custom hook for signature upload
 import { useNidUpload } from '@/hooks/useNidUpload';  // Custom hook for nid upload
 
+interface FormValues {
+  name: string;
+  password: string;
+  gender: string;
+  phone: string;
+  address: string;
+  avatar: string;
+  nidNumber: string;
+  nidImage: string;
+  signatureImage: string;
+}
+
 export default function UpdateProfile() {
+  
   const form = useForm({
     initialValues: {
       name: '',

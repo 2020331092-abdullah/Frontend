@@ -6,6 +6,17 @@ import Image from 'next/image';
 import { useState, ChangeEvent } from 'react';
 import { useAvatarUpload } from '@/hooks/useAvatarUpload';  // Custom hook for avatar upload
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';  // Custom hook for updating profile
+interface FormValues {
+  name: string;
+  password: string;
+  gender: string;
+  phone: string;
+  address: string;
+  avatar: string;
+  nidNumber: string;
+  nidImage: string;
+  signatureImage: string;
+}
 
 export default function UpdateProfile() {
   const form = useForm({
@@ -27,7 +38,7 @@ export default function UpdateProfile() {
   const { onSubmit } = useUpdateProfile(form);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.currentTarget.files?.[0];
+    const file = event.currentTarget.files?.[0] as File;
     handleAvatarChange(file, form.setFieldValue);
   };
 
