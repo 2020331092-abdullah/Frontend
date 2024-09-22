@@ -3,6 +3,7 @@ import { FaSearch, FaUserTie } from 'react-icons/fa';
 import { useAgents } from '@/hooks/useAgents';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout/Layout';
+import Head from 'next/head';
 
 interface Agent {
   id: string;
@@ -22,7 +23,7 @@ const ContactAgent: React.FC = () => {
   useEffect(() => {
     const results = agents.filter((agent) =>
       agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      agent.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  
       agent.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredAgents(results);
@@ -36,6 +37,11 @@ const ContactAgent: React.FC = () => {
   };
 
   return (
+    <>
+    <Head>
+      <title> Agent-List | AgriBazaar</title>
+      <link rel="icon" href="/assets/logo.png" />
+    </Head>
     <Layout>
     <div className="min-h-screen bg-sky-200 py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,6 +100,7 @@ const ContactAgent: React.FC = () => {
       </div>
     </div>
     </Layout>
+    </>
   );
 };
 

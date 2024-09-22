@@ -27,6 +27,7 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
   const [filteredFarmers, setFilteredFarmers] = useState<Farmer[]>([]);
   const [isVerified, setIsVerified] = useState<boolean>(false); // Track if OTP is verified
   const { sendOtp } = useSendOtp();  
+  localStorage.setItem('id','0');
 
   useEffect(() => {
     const results = farmers.filter((farmer) =>
@@ -49,7 +50,7 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
     localStorage.setItem('division', farmer.division);
     localStorage.setItem('phone', farmer.phone);
     localStorage.setItem('id', farmer.id);
-
+   
     if (!isVerified) {
       alert('An OTP has been sent to the farmer. Please verify it to proceed.');
       sendOtp(email, id as string);
