@@ -39,7 +39,7 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
     setFilteredFarmers(results);
   }, [searchTerm, farmers]);
 
-
+   console.log(localStorage.getItem('id'));
   const handleManageProductClick = (email:string,pathchoice:string,farmer:Farmer) => {
 
     localStorage.setItem('name', farmer.name);
