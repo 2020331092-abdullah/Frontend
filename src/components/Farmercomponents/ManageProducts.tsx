@@ -150,7 +150,7 @@ const ManageProduct: React.FC = () => {
     <div className="bg-white rounded-xl shadow-lg p-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage Products</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
