@@ -9,7 +9,7 @@ import { useUpdateProfile } from '@/hooks/useUpdateAgentProfile';  // Custom hoo
 import { useSignatureUpload } from '@/hooks/useSignatureUpload';  // Custom hook for signature upload
 import { useNidUpload } from '@/hooks/useNidUpload';  // Custom hook for nid upload
 import axios from 'axios';
-
+import { useRouter } from 'next/router';
 interface FormValues {
   name: string;
   password: string;
@@ -24,7 +24,8 @@ interface FormValues {
 }
 
 export default function UpdateProfile() {
-  
+  const router = useRouter();
+  const { id } = router.query;
   const form = useForm<FormValues>({
     initialValues: {
       name: '',
@@ -72,11 +73,11 @@ export default function UpdateProfile() {
     event.preventDefault();
 
     const type = localStorage.getItem('role');
-    const id = localStorage.getItem('id');
+  
     const values = form.values;
 
     const updateChatRequestBody = {
-      id,
+      id:id,
       name: values.name,
       avatar: values.avatar,
       type: type,

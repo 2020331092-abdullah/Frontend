@@ -27,7 +27,7 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
   const [filteredFarmers, setFilteredFarmers] = useState<Farmer[]>([]);
   const [isVerified, setIsVerified] = useState<boolean>(false); // Track if OTP is verified
   const { sendOtp } = useSendOtp();  
-  
+
 
   useEffect(() => {
     const results = farmers.filter((farmer) =>

@@ -18,6 +18,7 @@ export default function DashboardProfile() {
 
   const storedNidNumber = loggedInUser.nidNumber;
   const storedId = loggedInUser.id;
+  
 
   // Notify user to provide NID if missing
   const showNidWarning = !storedNidNumber;
@@ -61,7 +62,7 @@ export default function DashboardProfile() {
 
                 <button
                   className="mt-6 w-full py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300"
-                  onClick={() => router.push('/update-agent')}
+                  onClick={() => router.push('/update-agent?id=' + storedId)}
                 >
                   Update Profile
                 </button>
