@@ -5,6 +5,7 @@ import { useChats } from '@/hooks/useChats';
 import { useAddMessage } from '@/hooks/useAddMessage';
 import { useUsers } from '@/hooks/useUsers';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import {
   FaPaperPlane,
   FaSmile,
@@ -179,6 +180,11 @@ export default function ChatPage() {
   }, [selectedChat?.messages]);
 
   return (
+    <>
+    <Head>
+      <title>Chat-App | AgriBazaar</title>
+      <link rel="icon" href="/assets/logo.png" />
+    </Head>
     <Layout>
       <div className="min-h-screen bg-gray-100 py-8 pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -319,6 +325,7 @@ export default function ChatPage() {
         </div>
       </div>
     </Layout>
+    </>
   );
 }
 

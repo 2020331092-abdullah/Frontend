@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import {useChats} from '@/hooks/useChats';
 import { FaUserCircle, FaSignOutAlt, FaBox, FaCartPlus, FaChartLine, FaEnvelope,FaTractor,FaUsers } from 'react-icons/fa';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function DashboardProfile() {
   const { profiles, loggedInUser } = useProfile();
@@ -23,6 +24,11 @@ export default function DashboardProfile() {
   //if (error) return <p>{error}</p>;
 
   return (
+    <>
+    <Head>
+      <title>Farmer-Dashboard | AgriBazaar</title>
+      <link rel="icon" href="/assets/logo.png" />
+    </Head>
     <Layout>
       <div className="min-h-screen bg-sky-200 py-8 pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -201,5 +207,6 @@ export default function DashboardProfile() {
         )}
       </div>
     </Layout>
+    </>
   );
 }
