@@ -21,7 +21,7 @@ export default function DashboardProfile() {
 
   // Notify user to provide NID if missing
   const showNidWarning = !storedNidNumber;
-  localStorage.setItem('id','0');
+
   return (
       <>
       <Head>
