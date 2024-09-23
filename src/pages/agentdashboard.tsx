@@ -106,8 +106,8 @@ export default function DashboardProfile() {
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href="/chatpage"
+                    <Link
+                        href={`/chatpage?id=${storedId}`}
                         className="flex items-center text-gray-700 hover:text-green-600 transition-colors duration-300"
                       >
                         <FaEnvelope className="mr-3" />

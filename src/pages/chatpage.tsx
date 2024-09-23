@@ -4,6 +4,7 @@ import { Client } from '@stomp/stompjs';
 import { useChats } from '@/hooks/useChats';
 import { useAddMessage } from '@/hooks/useAddMessage';
 import { useUsers } from '@/hooks/useUsers';
+import { useRouter } from 'next/router';
 import {
   FaPaperPlane,
   FaSmile,
@@ -32,6 +33,7 @@ interface Chat {
 
 
 export default function ChatPage() {
+  const router = useRouter();
   const { addMessage } = useAddMessage();
   const { users } = useUsers();
   const [chatId, setChatId] = useState<string>('');
@@ -52,11 +54,18 @@ export default function ChatPage() {
 
   // Set current user ID from localStorage
   useEffect(() => {
+    const { id } = router.query;  
+    if(id){
+      setCurrentUserID(id as string);
+      setSenderId(id as string);
+    }
+    else{
     const storedUserID = localStorage.getItem('id');
     if (storedUserID) {
       setCurrentUserID(storedUserID);
       setSenderId(storedUserID);
     }
+  }
   }, []);
 
   // Initialize WebSocket connection with SockJS and STOMP
