@@ -476,6 +476,26 @@ const Header = () => {
             </button>
           </div>
           )}
+           {pathname === '/chatpage' && (
+            <div className="flex items-center space-x-4">
+           
+            
+            <button
+              onClick={() => router.back()}
+                className="flex items-center text-green-800 hover:text-green-600 transition-colors duration-300"
+              aria-label="dashboard"
+            >
+              <FaUser size={22} />
+              <span
+              className="ml-2 text-sm font-semibold"
+              style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
+            >
+              Deshboard
+            </span>
+            </button>
+          </div>
+          )}
+
 
           {logged && (
             <button
