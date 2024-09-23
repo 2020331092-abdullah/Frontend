@@ -54,8 +54,10 @@ export default function ChatPage() {
 
   // Set current user ID from localStorage
   useEffect(() => {
+    console.log(router.isReady);
     if (router.isReady){
     const { id } = router.query;
+      console.log(id);
       setCurrentUserID(id as string);
       setSenderId(id as string);
     }else {
