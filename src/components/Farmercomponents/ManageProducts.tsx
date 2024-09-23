@@ -152,10 +152,8 @@ const ManageProduct: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-light-blue-50 p-6 rounded-lg shadow-md hover:bg-light-blue-100 transition-colors duration-300"
-          >
+          <div  key={product.id} className="max-w-xs rounded-md overflow-hidden shadow-md bg-gradient-to-r from-green-50 to-green-100 hover:from-green-200 hover:to-green-300 transition-shadow duration-300 ease-in-out p-4 border border-green-500">
+         
             {product.isEditing ? (
               <>
                 <input
@@ -222,22 +220,24 @@ const ManageProduct: React.FC = () => {
               </>
             ) : (
               <>
-                <h3 className="text-2xl font-bold text-blue-900 mb-2">
-                  {product.productname}
-                </h3>
-                <img
-                  src={product.image}
-                  alt={product.productname}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-                <p className="text-lg text-gray-700 mb-4">
-                  <b>Price:</b> {product.price} &nbsp; <b>Quantity:</b>{' '}
-                  {product.quantity}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Owner Name: {product.ownername}
-                </p>
-                <div className="flex space-x-2">
+         
+  <h3 className="text-xl font-bold text-green-900 mb-2 hover:text-green-700 transition-colors duration-200 tracking-wide shadow-md shadow-green-200">
+    {product.productname}
+  </h3>
+  <img
+    src={product.image}
+    alt={product.productname}
+    className="w-full h-40 object-cover rounded-md mb-3 transition-transform transform hover:scale-105 duration-300 border border-green-600"
+  />
+  <p className="text-sm text-green-800 mb-3">
+    <b className="text-green-900 italic font-semibold">Price:</b> <span className="text-green-700 font-medium">{product.price}</span> &nbsp; 
+    <b className="text-green-900 italic font-semibold">Quantity:</b> <span className="text-green-700 font-medium">{product.quantity}</span>
+  </p>
+  <p className="text-xs text-green-900 mb-2">
+    <b className="text-green-900 italic font-semibold">Owner Name:</b> <span className="text-green-800">{product.ownername}</span>
+  </p>
+  <div className="flex space-x-2">
+
                  
                   <button
                       className="bg-transparent text-blue-500 px-3 py-1.5 border border-blue-500 rounded-md text-xs hover:bg-blue-500 hover:text-white transition-colors duration-300"
