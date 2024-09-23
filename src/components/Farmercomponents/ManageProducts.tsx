@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
-import { FaEdit, FaSave, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaSave, FaTrash, FaSpinner } from 'react-icons/fa';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../config/firebaseConfig';
 
@@ -122,25 +122,24 @@ const ManageProduct: React.FC = () => {
       alert('Product not found');
     }
   };
-  
+  const [deleting, setDeleting] = useState<string | null>(null); // Track deleting product ID
   const handleDeleteClick = async (productId: string) => {
-    console.log("Delete product id: ", productId); 
-    
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (!confirmDelete) return;
+
+    setDeleting(productId); // Track the product being deleted
     try {
-      const response = await axios.delete(`/api/product`, {
-        params: { id: productId },
-      });
-  
+      const response = await axios.delete(`/api/product`, { params: { id: productId } });
       if (response.status === 200) {
-        setProducts((prevProducts) =>
-          prevProducts.filter((product) => product.id !== productId)
-        );
+        setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
       } else {
         throw new Error('Failed to delete product');
       }
     } catch (error) {
-      console.error('Error deleting product:', error); 
-      alert('Failed to delete product'); 
+      console.error('Error deleting product:', error);
+      alert('Failed to delete product');
+    } finally {
+      setDeleting(null);
     }
   };
   
@@ -245,12 +244,9 @@ const ManageProduct: React.FC = () => {
                     >
                     Edit
                     </button>
-                    <button
-                      className="bg-transparent text-red-500 px-3 py-1.5 border border-red-500 rounded-md text-xs hover:bg-red-500 hover:text-white transition-colors duration-300"
-                      onClick={() => handleDeleteClick(product.id)}
-                    >
-                      Remove
-                    </button>
+                    <button className="bg-transparent text-red-500 px-3 py-1.5 border border-red-500 rounded-md text-xs hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => handleDeleteClick(product.id)}>
+                    {deleting === product.id ? <FaSpinner className="animate-spin inline" /> : 'Remove'}
+                  </button>
                  
                 </div>
               </>
