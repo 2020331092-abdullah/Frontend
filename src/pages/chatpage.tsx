@@ -54,19 +54,18 @@ export default function ChatPage() {
 
   // Set current user ID from localStorage
   useEffect(() => {
-    const { id } = router.query;  
-    if(id){
+    if (router.isReady){
+    const { id } = router.query;
       setCurrentUserID(id as string);
       setSenderId(id as string);
+    }else {
+      const storedUserID = localStorage.getItem('id');
+      if (storedUserID) {
+        setCurrentUserID(storedUserID);
+        setSenderId(storedUserID);
+      }
     }
-    else{
-    const storedUserID = localStorage.getItem('id');
-    if (storedUserID) {
-      setCurrentUserID(storedUserID);
-      setSenderId(storedUserID);
-    }
-  }
-  }, []);
+  }, [router.isReady, router.query]);
 
   // Initialize WebSocket connection with SockJS and STOMP
   useEffect(() => {
