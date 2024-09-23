@@ -20,9 +20,7 @@ interface FormValues {
   nidNumber: string;
   nidImage: string;
   signatureImage: string;
-  upazila: string;
-  zila: string;
-  organization: string;
+
 }
 
 export default function UpdateProfile() {
@@ -38,9 +36,6 @@ export default function UpdateProfile() {
       nidNumber: '',
       nidImage: '',
       signatureImage: '',
-      upazila: '',
-      zila: '',
-      organization: '',
     },
     validate: {
       name: (value) => (value ? null : 'Name is required'),
@@ -98,16 +93,17 @@ export default function UpdateProfile() {
       alert('Failed to update chat profile: Please try again.');
     }
 
+    
     const updateRequestBody = {
       name: values.name,
       password: values.password,
       gender: values.gender,
       phone: values.phone,
       address: values.address,
-      upazila: values.upazila,
-      zila: values.zila,
-      organization: values.organization,
+      nidNumber: values.nidNumber,
       avatar: values.avatar,
+      nidImage: values.nidImage,
+      signatureImag: values.signatureImage,
     };
 
     try {
@@ -117,14 +113,13 @@ export default function UpdateProfile() {
         return;
       }
 
-      const res = await axios.put('/api/update', updateRequestBody, {
+      const res = await axios.put('/api/agent-update', updateRequestBody, {
         headers: { 'Content-Type': 'application/json' },
         params: { email },
       });
 
       if (res.status === 200) {
-        const role = localStorage.getItem('role');
-        window.location.href = role === 'buyer' ? '/buyerdashboard' : '/farmerdashboard';
+        window.location.href = '/';
       } else {
         throw new Error(res.data.message || 'Failed to update profile');
       }
@@ -133,6 +128,7 @@ export default function UpdateProfile() {
       alert('Failed to update profile: Please try again.');
     }
   };
+  
 
   return (
     <>
