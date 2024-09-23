@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
 import Head from 'next/head'; // Import the Head component
-
+import { useAddComment } from '@/hooks/useAddComment';
+import { useFetchComments } from '@/hooks/useFetchComments';
 // Interface for the Product type
 interface Product {
   id: number;
@@ -27,32 +28,24 @@ interface Product {
 // Interface for the Comment type
 interface Comment {
   id: number;
-  name: string;
-  text: string;
-  date: string;
+  productid: string,
+  userid:string,
+  comment:string,
+  username:string
 }
 
-// Initial sample comments
-const initialComments: Comment[] = [
-  {
-    id: 1,
-    name: 'Alice Johnson',
-    text: 'These apples are amazing! They are so fresh and juicy. Definitely will buy again!',
-    date: '08/13/2024',
-  },
-  {
-    id: 2,
-    name: 'Mark Spencer',
-    text: 'The quality is top-notch, and the price is very reasonable. Highly recommend!',
-    date: '08/14/2024',
-  },
-];
+
+
+
 
 const ProductDetails: React.FC = () => {
+ 
   const router = useRouter();
-  const { id } = router.query; // Get the product ID from the query parameters
+  const { id } = router.query; // Get the product ID from the query parameters4
+  const productid = id as string;
+  const { comments} =useFetchComments(productid);
   const [product, setProduct] = useState<Product | null>(null); // State for storing the fetched product details
-  const [comments, setComments] = useState<Comment[]>(initialComments); // State for comments
+  const [comment, setComment] = useState<Comment[]>(comments); // State for comments
   const [newComment, setNewComment] = useState<string>(''); // State for new comment text
   const [name, setName] = useState<string>(''); // State for the commenter's name
   const [mail, setMail] = useState<string>(''); // State to store the owner's email
@@ -69,6 +62,7 @@ const ProductDetails: React.FC = () => {
   const [ownerupzila, setOwnerupzila] = useState<string >(''); // State to store the commenter's name
   const [ownerzila, setOwnerzila] = useState<string >(''); // State to store the commenter's name
   const [ownerdivision, setOwnerdivision] = useState<string >(''); // State to store the commenter's name
+  const { addComment } = useAddComment(); // Custom hook for adding a new comment
 
 
 
@@ -127,17 +121,20 @@ const ProductDetails: React.FC = () => {
   console.log('image:', image);
   // Function to handle adding a new comment
   const handleAddComment = () => {
-    if (name && newComment) {
+    
       const comment: Comment = {
         id: comments.length + 1,
-        name,
-        text: newComment,
-        date: new Date().toLocaleDateString(), // Format current date
+        productid: id as string,
+        userid: mail,
+        username: name,
+        comment: newComment,
+      
+       // date: new Date().toLocaleDateString(), // Format current date
       };
-      setComments([...comments, comment]); // Add new comment to comments array
+      setComment([...comments, comment]); // Add new comment to comments array
       setNewComment(''); // Clear new comment input
       setName(''); // Clear name input
-    }
+      addComment(newComment, name, mail, id as string); // Call the addComment function from the custom hook
   };
 
   console.log('Product:', product);
@@ -230,10 +227,10 @@ const handleBuyProduct = () => {
               {comments.map((comment) => (
                 <div key={comment.id} className="bg-green-100 p-4 rounded-lg shadow-sm">
                   <div className="flex justify-between items-center">
-                    <h4 className="text-lg font-semibold text-gray-900">{comment.name}</h4>
-                    <span className="text-sm text-gray-500">{comment.date}</span>
+                    <h4 className="text-lg font-semibold text-gray-900">{comment.username}</h4>
+                    <span className="text-sm text-gray-500">{comment.productid}</span>
                   </div>
-                  <p className="text-gray-700 mt-2">{comment.text}</p>
+                  <p className="text-gray-700 mt-2">{comment.comment}</p>
                 </div>
               ))}
             </div>
