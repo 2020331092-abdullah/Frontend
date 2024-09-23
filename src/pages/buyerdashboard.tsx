@@ -16,14 +16,17 @@ import PurchasedProducts from '@/components/PurchasedProducts';
 import useUserAuthentication from '@/hooks/useUserAuthentication';
 import useProducts from '@/hooks/useProducts';
 import Link from 'next/link';
+import useCartProducts from '@/hooks/useCartProducts';
+import { usePurchasedProducts } from '@/hooks/usePurchasedProducts';
 
 export default function BuyerDashboard() {
   const { loggedInUser, profile } = useUserAuthentication(); // Hook for authentication
   const { productsData, loading } = useProducts(); // Hook for fetching products
-
+  const { products}  =useCartProducts()// Hook for managing cart
   const router = useRouter();
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
-
+  const { purchasedProducts } = usePurchasedProducts(loggedInUser.email);
+  console.log(loggedInUser);
   const handleSignOut = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
@@ -112,6 +115,7 @@ export default function BuyerDashboard() {
                     </li>
                     <li>
                       <Link
+                      
                        href={`/chatpage?id=${loggedInUser.id}`}
 
                         className="flex items-center text-gray-700 hover:text-green-600 transition-colors duration-300"
@@ -147,23 +151,23 @@ export default function BuyerDashboard() {
                         Total Products
                       </h3>
                       <p className="text-3xl font-bold text-green-700 mt-3">
-                        150
+                        {productsData.length}
                       </p>
                     </div>
                     <div className="bg-green-50 p-6 rounded-lg shadow-md hover:bg-green-100 transition-colors duration-300">
                       <h3 className="text-lg font-semibold text-green-900">
-                        Total Orders
+                        Cart Items
                       </h3>
                       <p className="text-3xl font-bold text-green-700 mt-3">
-                        320
+                        {products.length}
                       </p>
                     </div>
                     <div className="bg-green-50 p-6 rounded-lg shadow-md hover:bg-green-100 transition-colors duration-300">
                       <h3 className="text-lg font-semibold text-green-900">
-                        Messages
+                        Total Purchases
                       </h3>
                       <p className="text-3xl font-bold text-green-700 mt-3">
-                        12
+                        {purchasedProducts.length}
                       </p>
                     </div>
                   </div>

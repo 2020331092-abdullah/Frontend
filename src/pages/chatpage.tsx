@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
@@ -272,26 +273,32 @@ export default function ChatPage() {
 
                       return (
                         <div
-                          key={message.id}
-                          className={`flex ${
-                            isCurrentUserSender ? 'justify-end' : 'justify-start'
+                         key={index} className={`flex ${isCurrentUserSender ? 'justify-end' : 'justify-start'}`}>
+                        {!isCurrentUserSender && sender && (
+                          <img
+                            src={sender.avatar}
+                            alt={sender.name}
+                            className="w-10 h-10 rounded-full mr-2"
+                          />
+                        )}
+                        <div
+                          className={`relative max-w-xs px-4 py-2 rounded-lg shadow ${
+                            isCurrentUserSender
+                              ? 'bg-green-400 text-black'
+                              : 'bg-gray-100 text-gray-900'
                           }`}
                         >
-                          <div
-                            className={`rounded-lg p-4 max-w-xs ${
-                              isCurrentUserSender ? 'bg-green-500 text-white' : 'bg-gray-200'
-                            }`}
-                          >
-                            <p>{message.text}</p>
-                            <span className="block text-xs mt-2">
-                              {formatTime(message.time)}
-                            </span>
-                          </div>
-                          {isLastMessage && <div ref={lastMessageRef} />}
+                          <p>{message.text}</p>
+                          {/* Time below the text */}
+                          <span className="text-xs text-gray-500 mt-1 block text-right">
+                            {formatTime(message.time)}
+                          </span>
                         </div>
-                      );
-                    })}
-                  </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
 
                   {/* Send Message Input */}
                   <form

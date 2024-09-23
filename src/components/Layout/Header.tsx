@@ -34,12 +34,12 @@ const Header = () => {
     >
       <nav className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto lg:px-16">
         {/* Logo and Site Name */}
-        <Link href={'/dashboard'} className="flex items-center">
+        <a className="flex items-center">
           <img src="/assets/logo.png" alt="Logo" className="h-10 w-auto mr-3" />
           <span style={{ fontFamily: 'Caveat Brush, cursive', fontSize: '35px' }}>
             AgriBazaar
           </span>
-        </Link>
+        </a>
 
         {/* Conditional Navigation Links */}
         <div className="flex items-center space-x-4">
@@ -117,7 +117,7 @@ const Header = () => {
                 className="ml-2 text-sm font-semibold"
                 style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
               >
-                Deshboard
+                Dashboard
               </span>
               </button>
             </div>
@@ -165,7 +165,7 @@ const Header = () => {
                          className="ml-2 text-sm font-semibold"
                          style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
                        >
-                         Deshboard
+                         Dashboard
                        </span>
                        </button>
                      </div>
@@ -213,7 +213,7 @@ const Header = () => {
                                   className="ml-2 text-sm font-semibold"
                                   style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
                                 >
-                                  Deshboard
+                                  Dashboard
                                 </span>
                                 </button>
                               </div>
@@ -261,7 +261,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -308,7 +308,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -356,7 +356,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -390,7 +390,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -411,7 +411,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -431,7 +431,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -451,7 +451,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -471,15 +471,13 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
           )}
            {pathname === '/chatpage' && (
             <div className="flex items-center space-x-4">
-           
-            
             <button
               onClick={() => router.back()}
                 className="flex items-center text-green-800 hover:text-green-600 transition-colors duration-300"
@@ -490,7 +488,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -508,7 +506,7 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
@@ -525,13 +523,46 @@ const Header = () => {
               className="ml-2 text-sm font-semibold"
               style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
             >
-              Deshboard
+              Dashboard
             </span>
             </button>
           </div>
           )}
 
-
+          {pathname === '/product-tracking' && (
+            <div className="flex items-center space-x-4">
+            <button
+              onClick={() => router.back()}
+                className="flex items-center text-green-800 hover:text-green-600 transition-colors duration-300"
+              aria-label="dashboard"
+            >
+              <FaUser size={22} />
+              <span
+              className="ml-2 text-sm font-semibold"
+              style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
+            >
+              Dashboard
+            </span>
+            </button>
+          </div>
+          )}
+         {pathname === '/soldproduct-details' && (
+            <div className="flex items-center space-x-4">
+            <button
+              onClick={() => router.back()}
+                className="flex items-center text-green-800 hover:text-green-600 transition-colors duration-300"
+              aria-label="dashboard"
+            >
+              <FaUser size={22} />
+              <span
+              className="ml-2 text-sm font-semibold"
+              style={{ fontFamily: 'Caveat Brush, cursive', color: 'black' }}
+            >
+              Dashboard
+            </span>
+            </button>
+          </div>
+          )}
           {logged && (
             <button
               onClick={() => {

@@ -31,7 +31,7 @@ const useUserAuthentication = () => {
 
           setProfiles(res.data);
           setLoggedInUser({
-            id: res.data._id,
+            id: res.data.id,
             name: res.data.name,
             role: res.data.role,
             email: res.data.email,
