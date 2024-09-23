@@ -4,6 +4,8 @@ import { useFarmers } from '../hooks/useFarmers';
 import router from 'next/router';
 import { useSendOtp } from '../hooks/useSendOtp';
 import { useRouter } from 'next/router';
+import { useChat } from '../hooks/useChat';
+
 
 interface Farmer {
   id: string;
@@ -21,13 +23,14 @@ interface FarmerListProps {
 }
 
 const FarmerList: React.FC< FarmerListProps> = ({id}) => {
+  const agentId = id;
   const router = useRouter();
   const { farmers, loading, error } = useFarmers();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredFarmers, setFilteredFarmers] = useState<Farmer[]>([]);
   const [isVerified, setIsVerified] = useState<boolean>(false); // Track if OTP is verified
   const { sendOtp } = useSendOtp();  
-
+  const { createOrGetChat } = useChat();
 
   useEffect(() => {
     const results = farmers.filter((farmer) =>
@@ -126,6 +129,22 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
                       >
                         Check Orders
                       </button>
+                      <samp> </samp>
+                      <button
+                      className="bg-transparent text-green-500 px-3 py-1.5 border border-green-500 rounded-md text-xs hover:bg-green-500 hover:text-white transition-colors duration-300"
+                      onClick={() => {
+                        const user1Id = farmer.id;
+                        const user2Id = id;
+                        if (user1Id && user2Id) {
+                          createOrGetChat(user1Id, user2Id);
+                          router.push('/chatpage?id=' + id);
+                        } else {
+                          alert('Please enter both User IDs.');
+                        }
+                      }}
+                    >
+                      Contact Farmer
+                    </button>
                     </div>
                   </div>
                 </div>

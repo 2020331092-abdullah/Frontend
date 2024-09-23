@@ -4,6 +4,7 @@ import { useAgents } from '@/hooks/useAgents';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout/Layout';
 import Head from 'next/head';
+import { useChat } from '@/hooks/useChat';
 
 interface Agent {
   id: string;
@@ -16,6 +17,7 @@ interface Agent {
 
 const ContactAgent: React.FC = () => {
   const router = useRouter();
+  const { createOrGetChat } = useChat();
   const { agents, loading, error } = useAgents();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredAgents, setFilteredAgents] = useState<Agent[]>([]);
@@ -88,6 +90,23 @@ const ContactAgent: React.FC = () => {
                     </div>
 
                     {/* Button Container */}
+                    <div className="ml-auto">
+                    <button
+                      className="bg-transparent text-green-500 px-3 py-1.5 border border-green-500 rounded-md text-xs hover:bg-green-500 hover:text-white transition-colors duration-300"
+                      onClick={() => {
+                        const user1Id = agent.id;
+                        const user2Id = localStorage.getItem('id');
+                        if (user1Id && user2Id) {
+                          createOrGetChat(user1Id, user2Id);
+                          router.push('/chatpage?id=' + user2Id);
+                        } else {
+                          alert('Please enter both User IDs.');
+                        }
+                      }}
+                    >
+                      Contact
+                    </button>
+                      </div>
                 
                   </div>
                 </div>
