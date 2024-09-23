@@ -103,6 +103,7 @@ export default function BrowseProducts() {
                         const user2Id = localStorage.getItem('id');
                         if (user1Id && user2Id) {
                           createOrGetChat(user1Id, user2Id);
+                          router.push('/chatpage?id=' + user2Id);
                         } else {
                           alert('Please enter both User IDs.');
                         }
