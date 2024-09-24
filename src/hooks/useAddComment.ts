@@ -6,7 +6,7 @@ export const useAddComment = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const addComment = async (comment: string, username: string, userid: string, productid: string) => {
+  const addComment = async (comment: string, username: string, userid: string, productid: string,useravatar:string,date:string,productname:string) => {
     setLoading(true);
     try {
       const res = await axios.post('/api/comments', {
@@ -14,6 +14,9 @@ export const useAddComment = () => {
         username,
         userid,
         productid,
+        useravatar,
+        date,
+        productname,
       });
       setSuccess(true);
       setLoading(false);

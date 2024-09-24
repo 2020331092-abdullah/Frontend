@@ -20,6 +20,7 @@ export default function BrowseProducts() {
   const handleViewDetails = (id: number) => {
     router.push(`/product-details?id=${id}`);
   };
+ 
 
   return (
     <>

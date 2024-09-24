@@ -36,6 +36,9 @@ export default async function handler(
             username,
             userid,
             productid,
+            date,
+            useravatar,
+            productname,
            
         } = req.body;
         const postUrl =process.env.PRODUCT_SERVICE_BASEURL+ '/comments/add';
@@ -45,6 +48,10 @@ export default async function handler(
         formData.append('username', username);
         formData.append('userid', userid);
         formData.append('productid', productid);
+        formData.append('date', date);
+        formData.append('useravatar', useravatar);
+        formData.append('productname', productname);
+        
       
         try {
             const axiosRes = await axios.post(postUrl, formData, {

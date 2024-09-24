@@ -20,8 +20,8 @@ export default function DashboardProfile() {
  // const { cartItems, handleAddToCart } = useCart(); // Hook to manage cart items
   const router = useRouter();
 
-  //if (loading) return <p>Loading products...</p>;
-  //if (error) return <p>{error}</p>;
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -172,8 +172,7 @@ export default function DashboardProfile() {
               {/* Add Product Section */}
               <section
                 id="addproduct"
-                className="bg-white rounded-xl shadow-lg p-8 transition-transform duration-500 ease-in-out transform hover:scale-105"
-              >
+                className="bg-white rounded-xl shadow-lg p-8 transition-transform duration-500 ease-in-out transform hover:scale-105">
                 <div className="flex justify-between items-center mb-6">
                   <AddProduct />
                 </div>
