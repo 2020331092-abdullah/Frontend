@@ -189,7 +189,7 @@ const handleBuyProduct = () => {
 
   // Show a loading state if the product data isn't available yet
   if (!product) {
-    return <div>Product not found</div>;
+    return <div>looding</div>;
   }
 
   
