@@ -35,7 +35,7 @@ export default function DashboardProfile() {
   const router = useRouter();
 
   if (loading) return <p>Loading products...</p>;
-  if (error) return <p>{error}</p>;
+  
 
   return (
     <>
