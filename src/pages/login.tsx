@@ -23,39 +23,37 @@ export default function AuthenticationTitle() {
   });
 
   const onSubmit = async (values: { email: string; password: string; role: string }) => {
-    if(values.role==='agent')
-    {
+    if (values.role === 'agent') {
       try {
         const res = await axios.post('/api/agentlogin', values);
         const { token } = res.data;
         localStorage.setItem('token', token);
         localStorage.setItem('role', values.role);
         localStorage.setItem('email', values.email);
-        //alert should more nice
         alert('Login Successful');
         window.location.href = '/agentdashboard';
-      }catch (err) {
+      } catch (err) {
         alert('Error');
         console.log(err);
       }
-    }
-    else
-    try {
-      const res = await axios.post('/api/login', values);
-      const { token } = res.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', values.role);
-      localStorage.setItem('email', values.email);
+    } else {
+      try {
+        const res = await axios.post('/api/login', values);
+        const { token } = res.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', values.role);
+        localStorage.setItem('email', values.email);
 
-      // Redirect based on the role
-      if (values.role === 'buyer') {
-        window.location.href = '/buyerdashboard';
-      } else if (values.role === 'farmer') {
-        window.location.href = '/farmerdashboard';
+        // Redirect based on the role
+        if (values.role === 'buyer') {
+          window.location.href = '/buyerdashboard';
+        } else if (values.role === 'farmer') {
+          window.location.href = '/farmerdashboard';
+        }
+      } catch (err) {
+        alert('Error');
+        console.log(err);
       }
-    } catch (err) {
-      alert('Error');
-      console.log(err);
     }
   };
 
@@ -63,12 +61,11 @@ export default function AuthenticationTitle() {
     const func = async () => {
       try {
         const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role'); // Get the role from localStorage
+        const role = localStorage.getItem('role');
         console.log({ token, role });
         if (token) {
           if (role === 'buyer') {
             window.location.href = '/buyerdashboard';
-
           } else if (role === 'farmer') {
             window.location.href = '/farmerdashboard';
           }
@@ -97,19 +94,18 @@ export default function AuthenticationTitle() {
             paddingTop: '6rem', // Added padding for more space before the card
           }}
         >
-          <ScrollAnimationWrapper>
-            <motion.div
-              className="rounded-lg p-10 shadow-lg max-w-md w-full"
+          <div
+              className="rounded-lg p-8 shadow-lg w-full max-w-lg sm:max-w-md lg:max-w-lg xl:max-w-xl"
               style={{
                 backgroundColor: '#f5f5f5', // Light green and white background for the card
                 border: '1px solid #aed581', // Green border
               }}
-              variants={scrollAnimation}
+              
             >
-              <h1 className="text-4xl font-bold text-green-900 text-center mb-6">
+              <h1 className="text-3xl lg:text-4xl font-bold text-green-900 text-center mb-6">
                 Login to AgriBazaar
               </h1>
-              <p className="text-sm text-green-700 text-center mb-8">
+              <p className="text-sm lg:text-base text-green-700 text-center mb-8">
                 New to AgriBazaar?{' '}
                 <button
                   className="text-orange-600 font-semibold underline"
@@ -121,7 +117,7 @@ export default function AuthenticationTitle() {
               <form onSubmit={form.onSubmit(onSubmit)}>
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">
+                    <label className="block text-sm lg:text-base font-semibold text-green-900 mb-2">
                       Email
                     </label>
                     <input
@@ -133,7 +129,7 @@ export default function AuthenticationTitle() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">
+                    <label className="block text-sm lg:text-base font-semibold text-green-900 mb-2">
                       Password
                     </label>
                     <input
@@ -145,7 +141,7 @@ export default function AuthenticationTitle() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">
+                    <label className="block text-sm lg:text-base font-semibold text-green-900 mb-2">
                       Role
                     </label>
                     <select
@@ -160,15 +156,12 @@ export default function AuthenticationTitle() {
                   </div>
                   <div className="mt-8">
                     <Center>
-                      <ButtonPrimary type="submit">
-                        Log in
-                      </ButtonPrimary>
+                      <ButtonPrimary type="submit">Log in</ButtonPrimary>
                     </Center>
                   </div>
                 </div>
               </form>
-            </motion.div>
-          </ScrollAnimationWrapper>
+         </div>
         </div>
       </Layout>
     </>

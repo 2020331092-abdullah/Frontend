@@ -7,7 +7,7 @@ import React from 'react';
 import getScrollAnimation from '@/utils/getScrollAnimation';
 import { useFormHandling } from '@/hooks/useFormHandling';
 import { useRoleSelection } from '@/hooks/useRoleSelection';
-import {useSubmitForm } from '@/hooks/useSubmitForm';
+import { useSubmitForm } from '@/hooks/useSubmitForm';
 import { useRouter } from 'next/router';
 
 export default function AuthenticationTitle() {
@@ -27,28 +27,24 @@ export default function AuthenticationTitle() {
         <div
           className="flex items-center justify-center"
           style={{
-            height: '90vh',
+            minHeight: '90vh',
             backgroundImage: 'linear-gradient(to bottom, #e0f7fa, #b2dfdb)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             paddingTop: '7rem',
           }}
         >
-          <ScrollAnimationWrapper>
-            <motion.div
-              className="mt-5 rounded-lg p-10 shadow-lg"
+          <div
+              className="mt-5 rounded-lg p-10 shadow-lg w-full sm:max-w-md md:max-w-lg lg:max-w-xl" // Responsive width adjustments
               style={{
                 backgroundColor: '#f1faee',
-                maxWidth: '500px',
-                width: '100%',
               }}
-              variants={scrollAnimation}
+          //    variants={scrollAnimation}
             >
-              <h1 className="text-4xl font-bold text-green-900 text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-green-900 text-center mb-6">
                 Create A New Account
-
               </h1>
-              <p className="text-xl text-green-700 text-center mb-8">
+              <p className="text-base md:text-lg text-green-700 text-center mb-8">
                 Have an account?{' '}
                 <button
                   className="text-orange-600 font-semibold underline"
@@ -60,15 +56,14 @@ export default function AuthenticationTitle() {
               <form onSubmit={onSubmit}>
                 <div className="rounded-md p-6">
                   <label
-                    className="text-color mb-2 text-sm font-semibold"
-                    style={{ color: '#1d3557' }}
+                    className="text-sm font-semibold text-green-900 mb-2"
                   >
                     Username
                   </label>
                   <br />
                   <input
                     type="text"
-                    className="input-border-color text-color mb-4 w-full rounded-md px-3 py-2"
+                    className="input-border-color w-full rounded-md px-3 py-2 mb-4 text-green-900 focus:ring-2 focus:ring-green-600"
                     placeholder="Your name"
                     required
                     {...form.getInputProps('name')}
@@ -78,16 +73,13 @@ export default function AuthenticationTitle() {
                     }}
                   />
 
-                  <label
-                    className="text-color mb-2 text-sm font-semibold"
-                    style={{ color: '#1d3557' }}
-                  >
+                  <label className="text-sm font-semibold text-green-900 mb-2">
                     Email
                   </label>
                   <br />
                   <input
                     type="email"
-                    className="input-border-color text-color mb-4 w-full rounded-md px-3 py-2"
+                    className="input-border-color w-full rounded-md px-3 py-2 mb-4 text-green-900 focus:ring-2 focus:ring-green-600"
                     placeholder="you@gmail.com"
                     required
                     {...form.getInputProps('email')}
@@ -97,16 +89,13 @@ export default function AuthenticationTitle() {
                     }}
                   />
 
-                  <label
-                    className="text-color mb-2 text-sm font-semibold"
-                    style={{ color: '#1d3557' }}
-                  >
+                  <label className="text-sm font-semibold text-green-900 mb-2">
                     Password
                   </label>
                   <br />
                   <input
                     type="password"
-                    className="input-border-color text-color mb-4 w-full rounded-md px-3 py-2"
+                    className="input-border-color w-full rounded-md px-3 py-2 mb-4 text-green-900 focus:ring-2 focus:ring-green-600"
                     placeholder="Your password"
                     required
                     {...form.getInputProps('password')}
@@ -116,15 +105,12 @@ export default function AuthenticationTitle() {
                     }}
                   />
 
-                  <label
-                    className="text-color mb-2 text-sm font-semibold"
-                    style={{ color: '#1d3557' }}
-                  >
+                  <label className="text-sm font-semibold text-green-900 mb-2">
                     Role
                   </label>
                   <br />
                   <select
-                    className="input-border-color text-color mb-4 w-full rounded-md px-3 py-2"
+                    className="input-border-color w-full rounded-md px-3 py-2 mb-4 text-green-900 focus:ring-2 focus:ring-green-600"
                     required
                     onChange={handleRoleChange}
                     style={{
@@ -144,8 +130,7 @@ export default function AuthenticationTitle() {
                   </div>
                 </div>
               </form>
-            </motion.div>
-          </ScrollAnimationWrapper>
+            </div>
         </div>
       </Layout>
     </>
