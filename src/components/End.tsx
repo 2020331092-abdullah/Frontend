@@ -20,7 +20,7 @@ const End = () => {
       className="max-w-screen-xl mt-8 mb-6 sm:mt-14 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
       id="feature"
     >
-      <div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-2 gap-8 p-8 my-12">
+      <div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-2 gap-8 p-4 sm:p-8 my-12">
         <ScrollAnimationWrapper className="flex w-full justify-end">
           <motion.div 
             className="h-full w-full p-4"
@@ -34,18 +34,19 @@ const End = () => {
             />
           </motion.div>
         </ScrollAnimationWrapper>
+
         <ScrollAnimationWrapper>
           <motion.div
-            className="flex flex-col items-end justify-center ml-auto w-full lg:w-9/12"
+            className="flex flex-col items-start justify-center w-full lg:w-9/12"
             variants={scrollAnimation}
           >
-            <h3 className="text-3xl lg:text-4xl font-bold leading-relaxed text-green-900">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-relaxed text-green-900">
               Discover the Features of Agri Bazaar
             </h3>
-            <p className="my-4 text-lg text-green-700">
+            <p className="my-4 text-base sm:text-lg text-green-700">
               Explore the innovative features we offer to enhance your agricultural transactions and planning.
             </p>
-            <ul className="text-green-700 self-start list-inside ml-8 space-y-3">
+            <ul className="text-green-700 self-start list-inside ml-6 space-y-3">
               {features.map((feature, index) => (
                 <motion.li
                   className="relative pl-4 custom-list flex items-center"
