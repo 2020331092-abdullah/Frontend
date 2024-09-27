@@ -18,7 +18,7 @@ const ButtonPrimary = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={`py-2 px-8 sm:py-3 sm:px-10 lg:py-4 lg:px-16 text-sm sm:text-base lg:text-lg text-white font-semibold rounded-lg custom-btn-shadow custom-btn-bg-color transition-all outline-none ${
+      className={`py-3 lg:py-4 px-12 lg:px-16 text-white font-semibold rounded-lg custom-btn-shadow custom-btn-bg-color transition-all outline-none ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       } ${addClass}`} // Using template literals for conditional class names
     >
