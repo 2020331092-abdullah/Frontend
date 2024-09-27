@@ -5,6 +5,7 @@ import router from 'next/router';
 import { useSendOtp } from '../hooks/useSendOtp';
 import { useRouter } from 'next/router';
 import { useChat } from '../hooks/useChat';
+import e from 'express';
 
 
 interface Farmer {
@@ -73,10 +74,12 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-2xl rounded-lg p-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-green-800">Farmers List</h1>
-
+            <h1 className="text-3xl sm:text-4xl font-bold text-green-800">
+              Farmers List
+            </h1>
+  
             {/* Search Bar */}
-            <div className="relative w-80">
+            <div className="relative w-full sm:w-80">
               <input
                 type="text"
                 placeholder="Search by name, id or location"
@@ -87,50 +90,65 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
               <FaSearch className="absolute left-3 top-3 text-green-400" />
             </div>
           </div>
-
-          {/* Grid Layout Row-wise */}
-          <div className="grid grid-cols-1 gap-6">
+  
+          {/* Row Layout */}
+          <div className="space-y-6">
             {filteredFarmers.length > 0 ? (
               filteredFarmers.map((farmer) => (
-                <div key={farmer.id} className="bg-green-100 border border-green-300 rounded-lg shadow-lg p-6 transition-transform duration-300 hover:scale-105">
-                  <div className="flex items-center">
-                    {farmer.avatar ? (
-                      <img
-                        src={farmer.avatar}
-                        alt={`${farmer.name}'s Avatar`}
-                        className="w-16 h-16 rounded-full object-cover mr-4"
-                      />
-                    ) : (
-                      <FaUserCircle className="text-5xl text-green-500 mr-4" />
-                    )}
-
-                    <div>
-                      <h2 className="text-xl font-semibold text-green-900">{farmer.name}</h2>
-                      <p className="text-sm text-green-700">{farmer.email}</p>
-                      <p className="text-sm text-green-700">
-                        {farmer.upazila}, {farmer.zila}.
-                      </p>
-                      <p className="text-sm text-green-700">{farmer.id}</p>
-                    </div>
-
-                    {/* Button Container */}
-                    <div className="ml-auto">
-                      <button
-                        className="bg-transparent text-blue-500 px-3 py-1.5 border border-blue-500 rounded-md text-xs hover:bg-blue-500 hover:text-white transition-colors duration-300"
-                        onClick={ () => handleManageProductClick(farmer.email,'Manage Product',farmer) }
-                      >
-                        Manage Product
-
-                      </button>
-                      <samp> </samp>
-                      <button
-                        className="bg-transparent text-red-500 px-3 py-1.5 border border-red-500 rounded-md text-xs hover:bg-red-500 hover:text-white transition-colors duration-300"
-                        onClick={ () => handleManageProductClick(farmer.email,'Check Orders',farmer) }
-                      >
-                        Check Orders
-                      </button>
-                      <samp> </samp>
-                      <button
+                <div
+                  key={farmer.id}
+                  className="bg-green-100 border border-green-300 rounded-lg shadow-lg p-6 flex items-center transition-transform duration-300 hover:scale-105"
+                >
+                  {farmer.avatar ? (
+                    <img
+                      src={farmer.avatar}
+                      alt={`${farmer.name}'s Avatar`}
+                      className="w-16 h-16 rounded-full object-cover mr-4"
+                    />
+                  ) : (
+                    <FaUserCircle className="text-5xl text-green-500 mr-4" />
+                  )}
+  
+                  <div className="flex-1">
+                    <h2 className="text-xl font-semibold text-green-900">
+                      {farmer.name}
+                    </h2>
+                    <p className="text-sm text-green-700">{farmer.email}</p>
+                    <p className="text-sm text-green-700">
+                      {farmer.upazila}, {farmer.zila}.
+                    </p>
+                    <p className="text-sm text-green-700">{farmer.id}</p>
+                  </div>
+  
+                  {/* Button Container */}
+                  <div className="flex space-x-2">
+                    <button
+                      className="bg-transparent text-blue-500 px-3 py-1.5 border border-blue-500 rounded-md text-xs hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                      onClick={() =>
+                        handleManageProductClick(
+                          farmer.email,
+                          'Manage Product',
+                          farmer
+                        )
+                      }
+                    >
+                      Manage Product
+                    </button>
+  
+                    <button
+                      className="bg-transparent text-red-500 px-3 py-1.5 border border-red-500 rounded-md text-xs hover:bg-red-500 hover:text-white transition-colors duration-300"
+                      onClick={() =>
+                        handleManageProductClick(
+                          farmer.email,
+                          'Check Orders',
+                          farmer
+                        )
+                      }
+                    >
+                      Check Orders
+                    </button>
+  
+                    <button
                       className="bg-transparent text-green-500 px-3 py-1.5 border border-green-500 rounded-md text-xs hover:bg-green-500 hover:text-white transition-colors duration-300"
                       onClick={() => {
                         const user1Id = farmer.id;
@@ -145,12 +163,13 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
                     >
                       Contact Farmer
                     </button>
-                    </div>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-center text-green-500 col-span-full">No farmers found.</p>
+              <p className="text-center text-green-500 col-span-full">
+                No farmers found.
+              </p>
             )}
           </div>
         </div>
@@ -158,5 +177,4 @@ const FarmerList: React.FC< FarmerListProps> = ({id}) => {
     </div>
   );
 };
-
-export default FarmerList;
+export default FarmerList;  

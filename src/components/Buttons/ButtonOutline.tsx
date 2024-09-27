@@ -8,7 +8,7 @@ interface ButtonOutlineProps {
 const ButtonOutline: React.FC<ButtonOutlineProps> = ({ children, onClick }) => {
   return (
     <button
-      className="btn-outline font-medium tracking-wide py-2 px-5 sm:px-8 rounded-full capitalize transition-all"
+      className="btn-outline font-medium tracking-wide text-sm sm:text-base py-2 px-4 sm:px-6 rounded-full capitalize transition-all duration-300 ease-in-out hover:shadow-md"
       onClick={onClick}
     >
       {children}
