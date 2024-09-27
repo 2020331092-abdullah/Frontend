@@ -37,8 +37,16 @@ export default function OTP() {
 
   const resendCode = async () => {
     const { id } = router.query;
+    console.log(id);
     try {
-      await axios.post('/api/resend', { id });
+      await axios.post('/api/resend', {},
+        {
+          params: {
+            id,
+          },
+        }
+
+      );
       alert('Code sent');
     } catch (err) {
       alert('Error');

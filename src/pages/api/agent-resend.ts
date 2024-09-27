@@ -12,7 +12,7 @@ export default async function handler(
         case 'POST':
             const id=req.query.id as string;
             console.log(id);
-        const url =process.env.USER_SERVICE_BASEURL+"/api/user/resend";
+        const url =process.env.USER_SERVICE_BASEURL+"/api/agents/resend";
         try{
             const axiosRes = await axios.post(url,{},
                 {
